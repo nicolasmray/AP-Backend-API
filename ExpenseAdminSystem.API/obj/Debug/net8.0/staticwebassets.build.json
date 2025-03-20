@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "TmVXtV+VVlXlka5b4lM7RCT/v61U4oK+VWqukcbQh5g=",
+  "Source": "ExpenseAdminSystem.API",
+  "BasePath": "_content/ExpenseAdminSystem.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
