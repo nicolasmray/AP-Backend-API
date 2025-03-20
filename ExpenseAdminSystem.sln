@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseAdminSystem.API", "CourseAdminSystem.API\CourseAdminSystem.API.csproj", "{835DA4FC-70AA-4860-8657-C71789536504}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseAdminSystem.API", "ExpenseAdminSystem.API\ExpenseAdminSystem.API.csproj", "{DB193717-87EA-42F7-87C9-5C6E54143D6B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -14,9 +14,9 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{835DA4FC-70AA-4860-8657-C71789536504}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{835DA4FC-70AA-4860-8657-C71789536504}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{835DA4FC-70AA-4860-8657-C71789536504}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{835DA4FC-70AA-4860-8657-C71789536504}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB193717-87EA-42F7-87C9-5C6E54143D6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB193717-87EA-42F7-87C9-5C6E54143D6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB193717-87EA-42F7-87C9-5C6E54143D6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB193717-87EA-42F7-87C9-5C6E54143D6B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
