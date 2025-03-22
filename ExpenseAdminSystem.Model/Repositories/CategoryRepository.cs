@@ -28,7 +28,7 @@ if (data.Read()) //every time loop runs it reads next like from fetched rows
 {
 return new Category(Convert.ToInt32(data["id"]))
 {
-Id = (int)data["id"],
+//Id = (int)data["id"],
 Name = data["name"].ToString()
 };
 }
@@ -59,7 +59,7 @@ while (data.Read()) //every time loop runs it reads next like from fetched rows
 {
 Category s = new Category(Convert.ToInt32(data["id"]))
 {
-Id = (int)data["id"],
+//Id = (int)data["id"],
 Name = data["name"].ToString()
 };
 categories.Add(s);
@@ -82,12 +82,12 @@ dbConn = new NpgsqlConnection(ConnectionString);
 var cmd = dbConn.CreateCommand();
 cmd.CommandText = @"
 insert into category
-(id, name)
+(name)
 values
-(@id, @name)
+(@name)
 ";
 //adding parameters in a better way
-cmd.Parameters.AddWithValue("@id", NpgsqlDbType.Integer,s.Id);
+//cmd.Parameters.AddWithValue("@id", NpgsqlDbType.Integer,s.Id);
 cmd.Parameters.AddWithValue("@name", NpgsqlDbType.Text, s.Name);
 
 //will return true if all goes well
@@ -105,11 +105,10 @@ var dbConn = new NpgsqlConnection(ConnectionString);
 var cmd = dbConn.CreateCommand();
 cmd.CommandText = @"
 update category set
-id=@id,
 name=@name,
 where
 id = @id";
-cmd.Parameters.AddWithValue("@id", NpgsqlDbType.Integer,s.Id);
+//cmd.Parameters.AddWithValue("@id", NpgsqlDbType.Integer,s.Id);
 cmd.Parameters.AddWithValue("@name", NpgsqlDbType.Text, s.Name);
 bool result = UpdateData(dbConn, cmd);
 return result;
