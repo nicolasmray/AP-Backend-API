@@ -1,0 +1,13 @@
+C:\Users\Usuario\Desktop\AP-Backend-API\ExpenseAdminSystem.Model\bin\Debug\net8.0\ExpenseAdminSystem.Model.deps.json
+C:\Users\Usuario\Desktop\AP-Backend-API\ExpenseAdminSystem.Model\bin\Debug\net8.0\ExpenseAdminSystem.Model.dll
+C:\Users\Usuario\Desktop\AP-Backend-API\ExpenseAdminSystem.Model\bin\Debug\net8.0\ExpenseAdminSystem.Model.pdb
+C:\Users\Usuario\Desktop\AP-Backend-API\ExpenseAdminSystem.Model\obj\Debug\net8.0\ExpenseAdminSystem.Model.csproj.AssemblyReference.cache
+C:\Users\Usuario\Desktop\AP-Backend-API\ExpenseAdminSystem.Model\obj\Debug\net8.0\ExpenseAdminSystem.Model.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Usuario\Desktop\AP-Backend-API\ExpenseAdminSystem.Model\obj\Debug\net8.0\ExpenseAdminSystem.Model.AssemblyInfoInputs.cache
+C:\Users\Usuario\Desktop\AP-Backend-API\ExpenseAdminSystem.Model\obj\Debug\net8.0\ExpenseAdminSystem.Model.AssemblyInfo.cs
+C:\Users\Usuario\Desktop\AP-Backend-API\ExpenseAdminSystem.Model\obj\Debug\net8.0\ExpenseAdminSystem.Model.csproj.CoreCompileInputs.cache
+C:\Users\Usuario\Desktop\AP-Backend-API\ExpenseAdminSystem.Model\obj\Debug\net8.0\ExpenseAdminSystem.Model.sourcelink.json
+C:\Users\Usuario\Desktop\AP-Backend-API\ExpenseAdminSystem.Model\obj\Debug\net8.0\ExpenseAdminSystem.Model.dll
+C:\Users\Usuario\Desktop\AP-Backend-API\ExpenseAdminSystem.Model\obj\Debug\net8.0\refint\ExpenseAdminSystem.Model.dll
+C:\Users\Usuario\Desktop\AP-Backend-API\ExpenseAdminSystem.Model\obj\Debug\net8.0\ExpenseAdminSystem.Model.pdb
+C:\Users\Usuario\Desktop\AP-Backend-API\ExpenseAdminSystem.Model\obj\Debug\net8.0\ref\ExpenseAdminSystem.Model.dll
