@@ -28,7 +28,7 @@ if (data.Read()) //every time loop runs it reads next like from fetched rows
 {
 return new Expense(Convert.ToInt32(data["id"]))
 {
-Id = (int)data["id"],
+//Id = (int)data["id"],
 UserId = (int)data["user_id"],
 Amount = (decimal)data["amount"],
 ExpenseDate = Convert.ToDateTime(data["expense_date"]),
@@ -65,7 +65,7 @@ while (data.Read()) //every time loop runs it reads next like from fetched rows
 {
 Expense s = new Expense(Convert.ToInt32(data["id"]))
 {
-Id = (int)data["id"],
+//Id = (int)data["id"],
 UserId = (int)data["user_id"],
 Amount = (decimal)data["amount"],
 ExpenseDate = Convert.ToDateTime(data["expense_date"]),
@@ -94,12 +94,12 @@ dbConn = new NpgsqlConnection(ConnectionString);
 var cmd = dbConn.CreateCommand();
 cmd.CommandText = @"
 insert into expense
-(id, user_id, amount, expense_date, category_id, currency_id, comments, created_at)
+(user_id, amount, expense_date, category_id, currency_id, comments, created_at)
 values
-(@id,@user_id, @amount, @expense_date, @category_id, @currency_id, @comments, @created_at)
+(@user_id, @amount, @expense_date, @category_id, @currency_id, @comments, @created_at)
 ";
 //adding parameters in a better way
-cmd.Parameters.AddWithValue("@id", NpgsqlDbType.Integer,s.Id);
+//cmd.Parameters.AddWithValue("@id", NpgsqlDbType.Integer,s.Id);
 cmd.Parameters.AddWithValue("@user_id", NpgsqlDbType.Integer,s.UserId);
 cmd.Parameters.AddWithValue("@amount", NpgsqlDbType.Numeric,s.Amount);
 cmd.Parameters.AddWithValue("@category_id", NpgsqlDbType.Integer,s.CategoryId);
@@ -122,7 +122,6 @@ var dbConn = new NpgsqlConnection(ConnectionString);
 var cmd = dbConn.CreateCommand();
 cmd.CommandText = @"
 update expense set
-id=@id,
 user_id=@user_id,
 amount=@amount,
 category_id=@category_id,
@@ -131,7 +130,7 @@ comments=@comments,
 created_at=@created_at,
 where
 id = @id";
-cmd.Parameters.AddWithValue("@id", NpgsqlDbType.Integer,s.Id);
+//cmd.Parameters.AddWithValue("@id", NpgsqlDbType.Integer,s.Id);
 cmd.Parameters.AddWithValue("@user_id", NpgsqlDbType.Integer,s.UserId);
 cmd.Parameters.AddWithValue("@amount", NpgsqlDbType.Numeric,s.Amount);
 cmd.Parameters.AddWithValue("@category_id", NpgsqlDbType.Integer,s.CategoryId);

@@ -28,7 +28,7 @@ if (data.Read()) //every time loop runs it reads next like from fetched rows
 {
 return new Currency(Convert.ToInt32(data["id"]))
 {
-Id = (int)data["id"],
+//Id = (int)data["id"],
 Code = data["code"].ToString(),
 Name = data["name"].ToString()
 };
@@ -51,7 +51,7 @@ try
 dbConn = new NpgsqlConnection(ConnectionString);
 //creating an SQL command
 var cmd = dbConn.CreateCommand();
-cmd.CommandText = "select * from expense";
+cmd.CommandText = "select * from currency";
 //call the base method to get data
 var data = GetData(dbConn, cmd);
 if (data != null)
@@ -60,7 +60,7 @@ while (data.Read()) //every time loop runs it reads next like from fetched rows
 {
 Currency s = new Currency(Convert.ToInt32(data["id"]))
 {
-Id = (int)data["id"],
+//Id = (int)data["id"],
 Code = data["code"].ToString(),
 Name = data["name"].ToString()
 };
@@ -84,12 +84,12 @@ dbConn = new NpgsqlConnection(ConnectionString);
 var cmd = dbConn.CreateCommand();
 cmd.CommandText = @"
 insert into currency
-(id, code, name)
+(code, name)
 values
-(@id,@code, @name)
+(@code, @name)
 ";
 //adding parameters in a better way
-cmd.Parameters.AddWithValue("@id", NpgsqlDbType.Integer,s.Id);
+//cmd.Parameters.AddWithValue("@id", NpgsqlDbType.Integer,s.Id);
 cmd.Parameters.AddWithValue("@code", NpgsqlDbType.Text, s.Code);
 cmd.Parameters.AddWithValue("@name", NpgsqlDbType.Text, s.Name);
 
@@ -108,12 +108,11 @@ var dbConn = new NpgsqlConnection(ConnectionString);
 var cmd = dbConn.CreateCommand();
 cmd.CommandText = @"
 update currency set
-id=@id,
 code=@code,
 name=@name,
 where
 id = @id";
-cmd.Parameters.AddWithValue("@id", NpgsqlDbType.Integer,s.Id);
+//cmd.Parameters.AddWithValue("@id", NpgsqlDbType.Integer,s.Id);
 cmd.Parameters.AddWithValue("@code", NpgsqlDbType.Text, s.Code);
 cmd.Parameters.AddWithValue("@name", NpgsqlDbType.Text, s.Name);
 bool result = UpdateData(dbConn, cmd);

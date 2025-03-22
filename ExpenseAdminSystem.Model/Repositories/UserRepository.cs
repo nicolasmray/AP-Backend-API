@@ -28,7 +28,7 @@ if (data.Read()) //every time loop runs it reads next like from fetched rows
 {
 return new User(Convert.ToInt32(data["id"]))
 {
-Id = (int)data["id"],
+//Id = (int)data["id"],
 UserName = data["username"].ToString(),
 Email = data["email"].ToString(),
 Password = data["password_hash"].ToString(),
@@ -62,7 +62,7 @@ while (data.Read()) //every time loop runs it reads next like from fetched rows
 {
 User s = new User(Convert.ToInt32(data["id"]))
 {
-Id = (int)data["id"],
+//Id = (int)data["id"],
 UserName = data["username"].ToString(),
 Email = data["email"].ToString(),
 Password = data["password_hash"].ToString(),
@@ -88,12 +88,12 @@ dbConn = new NpgsqlConnection(ConnectionString);
 var cmd = dbConn.CreateCommand();
 cmd.CommandText = @"
 insert into user
-(id, username, email, password_hash, created_at)
+(username, email, password_hash, created_at)
 values
-(@id,@username, @email, @password_hash, @created_at)
+(@username, @email, @password_hash, @created_at)
 ";
 //adding parameters in a better way
-cmd.Parameters.AddWithValue("@id", NpgsqlDbType.Integer,s.Id);
+//cmd.Parameters.AddWithValue("@id", NpgsqlDbType.Integer,s.Id);
 cmd.Parameters.AddWithValue("@username", NpgsqlDbType.Text, s.UserName);
 cmd.Parameters.AddWithValue("@email", NpgsqlDbType.Text, s.Email);
 cmd.Parameters.AddWithValue("@password_hash", NpgsqlDbType.Text, s.Password);
@@ -114,14 +114,13 @@ var dbConn = new NpgsqlConnection(ConnectionString);
 var cmd = dbConn.CreateCommand();
 cmd.CommandText = @"
 update user set
-id=@id,
 username=@username,
 email=@email,
 password_hash=@password_hash,
 created_at=@created_at,
 where
 id = @id";
-cmd.Parameters.AddWithValue("@id", NpgsqlDbType.Integer,s.Id);
+//cmd.Parameters.AddWithValue("@id", NpgsqlDbType.Integer,s.Id);
 cmd.Parameters.AddWithValue("@username", NpgsqlDbType.Text, s.UserName);
 cmd.Parameters.AddWithValue("@email", NpgsqlDbType.Text, s.Email);
 cmd.Parameters.AddWithValue("@password_hash", NpgsqlDbType.Text, s.Password);
