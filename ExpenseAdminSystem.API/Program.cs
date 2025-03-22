@@ -9,9 +9,9 @@ builder.Services.AddControllers();
 
 // Register repositories for dependency injection
 builder.Services.AddScoped<UserRepository, UserRepository>();
-//builder.Services.AddScoped<ExpenseRepository, ExpenseRepository>();
-//builder.Services.AddScoped<CurrencyRepository, CurrencyRepository>();
-//builder.Services.AddScoped<CategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ExpenseRepository, ExpenseRepository>();
+builder.Services.AddScoped<CurrencyRepository, CurrencyRepository>();
+builder.Services.AddScoped<CategoryRepository, CategoryRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
