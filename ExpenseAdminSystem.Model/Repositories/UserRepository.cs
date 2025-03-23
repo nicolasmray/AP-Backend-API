@@ -18,7 +18,7 @@ try
 dbConn = new NpgsqlConnection(ConnectionString);
 //creating an SQL command
 var cmd = dbConn.CreateCommand();
-cmd.CommandText = "select * from user where id = @id";
+cmd.CommandText = "select * from \"user\" where id = @id";
 cmd.Parameters.Add("@id", NpgsqlDbType.Integer).Value = id;
 //call the base method to get data
 var data = GetData(dbConn, cmd);
@@ -53,7 +53,7 @@ try
 dbConn = new NpgsqlConnection(ConnectionString);
 //creating an SQL command
 var cmd = dbConn.CreateCommand();
-cmd.CommandText = "select * from user";
+cmd.CommandText = "select * from \"user\"";
 //call the base method to get data
 var data = GetData(dbConn, cmd);
 if (data != null)
@@ -87,7 +87,7 @@ try
 dbConn = new NpgsqlConnection(ConnectionString);
 var cmd = dbConn.CreateCommand();
 cmd.CommandText = @"
-insert into user
+insert into ""user""
 (username, email, password_hash, created_at)
 values
 (@username, @email, @password_hash, @created_at)
@@ -113,7 +113,7 @@ public bool UpdateUser(User s)
 var dbConn = new NpgsqlConnection(ConnectionString);
 var cmd = dbConn.CreateCommand();
 cmd.CommandText = @"
-update user set
+update ""user"" set
 username=@username,
 email=@email,
 password_hash=@password_hash,
@@ -133,7 +133,7 @@ public bool DeleteUser(int id)
 var dbConn = new NpgsqlConnection(ConnectionString);
 var cmd = dbConn.CreateCommand();
 cmd.CommandText = @"
-delete from user
+delete from ""user""
 where id = @id
 ";
 //adding parameters in a better way
