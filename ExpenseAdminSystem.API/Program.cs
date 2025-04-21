@@ -1,5 +1,6 @@
 using DotNetEnv;
 using ExpenseAdminSystem.Model.Repositories;
+using CourseAdminSystem.API.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,7 +40,11 @@ if (app.Environment.IsDevelopment())
 
 
 app.UseCors("AllowFrontend");
+//app.UseCors(policy=> policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 //app.UseHttpsRedirection();
+
+app.UseBasicAuthenticationMiddleware();
+
 app.UseAuthorization();
 app.MapControllers();
 app.Run();
