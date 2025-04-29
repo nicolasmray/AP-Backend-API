@@ -1,11 +1,23 @@
 using DotNetEnv;
 using ExpenseAdminSystem.Model.Repositories;
+using CourseAdminSystem.API.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
+
+// Enable CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:4200") // Allow Angular frontend
+                  .AllowAnyMethod()
+                  .AllowAnyHeader();
+        });
+});
 
 // Register repositories for dependency injection
 builder.Services.AddScoped<UserRepository, UserRepository>();
@@ -26,10 +38,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
+app.UseCors("AllowFrontend");
+//app.UseCors(policy=> policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 //app.UseHttpsRedirection();
 
+app.UseBasicAuthenticationMiddleware();
+
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
