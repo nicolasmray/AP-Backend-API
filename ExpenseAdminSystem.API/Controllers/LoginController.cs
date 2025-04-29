@@ -76,7 +76,11 @@ namespace ExpenseAdminSystem.API.Controllers
                 var encodedCredentials = Convert.ToBase64String(bytes);
 
                 var headerValue = $"Basic {encodedCredentials}";
-                return Ok(new { headerValue = headerValue });
+                return Ok(new { 
+                    headerValue = headerValue,
+                    username = user.UserName,
+                    id = user.Id
+                 });
             }
             else
             {
