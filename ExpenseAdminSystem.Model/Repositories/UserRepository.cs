@@ -92,12 +92,16 @@ insert into ""user""
 values
 (@username, @email, @password_hash, @created_at)
 ";
+
+        var createdAt = s.CreatedAt == default(DateTime) 
+            ? DateTime.Now 
+            : s.CreatedAt;
 //adding parameters in a better way
 //cmd.Parameters.AddWithValue("@id", NpgsqlDbType.Integer,s.Id);
 cmd.Parameters.AddWithValue("@username", NpgsqlDbType.Text, s.UserName);
 cmd.Parameters.AddWithValue("@email", NpgsqlDbType.Text, s.Email);
 cmd.Parameters.AddWithValue("@password_hash", NpgsqlDbType.Text, s.Password);
-cmd.Parameters.AddWithValue("@created_at", NpgsqlDbType.Date, s.CreatedAt);
+cmd.Parameters.AddWithValue("@created_at", NpgsqlDbType.Timestamp, createdAt);
 
 //will return true if all goes well
 bool result = InsertData(dbConn, cmd);
@@ -117,14 +121,21 @@ update ""user"" set
 username=@username,
 email=@email,
 password_hash=@password_hash,
-created_at=@created_at,
+created_at=@created_at
 where
 id = @id";
-//cmd.Parameters.AddWithValue("@id", NpgsqlDbType.Integer,s.Id);
+
+//Console.WriteLine($"Parameters QUE RECIBE SQL: username='{s.UserName}', email='{s.Email}', " +
+   //     $"created_at={s.CreatedAt}, id={s.Id}");
+           var createdAt = s.CreatedAt == default(DateTime) 
+            ? DateTime.Now 
+            : s.CreatedAt;
+
+cmd.Parameters.AddWithValue("@id", NpgsqlDbType.Integer,s.Id);
 cmd.Parameters.AddWithValue("@username", NpgsqlDbType.Text, s.UserName);
 cmd.Parameters.AddWithValue("@email", NpgsqlDbType.Text, s.Email);
 cmd.Parameters.AddWithValue("@password_hash", NpgsqlDbType.Text, s.Password);
-cmd.Parameters.AddWithValue("@created_at", NpgsqlDbType.Date, s.CreatedAt);
+cmd.Parameters.AddWithValue("@created_at", NpgsqlDbType.Timestamp, createdAt);
 bool result = UpdateData(dbConn, cmd);
 return result;
 }
