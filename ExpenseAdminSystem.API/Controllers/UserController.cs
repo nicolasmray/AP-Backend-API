@@ -2,6 +2,9 @@ using ExpenseAdminSystem.Model.Entities;
 using ExpenseAdminSystem.Model.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+
+
 namespace ExpenseAdminSystem.API.Controllers
 {
 [Route("api/[controller]")]
@@ -26,6 +29,7 @@ public ActionResult<IEnumerable<User>> GetUsers()
 {
 return Ok(Repository.GetUsers());
 }
+[AllowAnonymous] 
 [HttpPost]
 public ActionResult Post([FromBody] User user) {
 if (user == null)
@@ -39,6 +43,7 @@ return Ok();
 }
 return BadRequest();
 }
+//[AllowAnonymous] 
 [HttpPut]
 public ActionResult UpdateUser([FromBody] User user)
 {

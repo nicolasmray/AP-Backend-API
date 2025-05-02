@@ -1,63 +1,83 @@
 // using System;
 // using System.Text;
+// using System.Threading.Tasks;
 // using Microsoft.AspNetCore.Authorization;
+// using Microsoft.AspNetCore.Http;
+// using ExpenseAdminSystem.Model.Repositories;
 
-// namespace CourseAdminSystem.API.Middleware;
-
-// public class BasicAuthenticationMiddleware
+// namespace CourseAdminSystem.API.Middleware
 // {
-//    private const string USERNAME = "Admin";
-//    private const string PASSWORD = "HardPassword";
+//     public class BasicAuthenticationMiddleware
+//     {
+//         private readonly RequestDelegate _next;
 
-//    private readonly RequestDelegate _next;
-//    public BasicAuthenticationMiddleware(RequestDelegate next) {
-//       _next = next;
-//    }
+//         public BasicAuthenticationMiddleware(RequestDelegate next)
+//         {
+//             _next = next;
+//         }
 
-//    public async Task InvokeAsync(HttpContext context) {
-//       // Bypass authentication for [AllowAnonymous]
-//       if (context.GetEndpoint()?.Metadata.GetMetadata<IAllowAnonymous>() != null) {
-//          await _next(context);
-//          return;
-//       }
+//         public async Task InvokeAsync(HttpContext context)
+//         {
+//             Console.WriteLine("---- Basic Authentication Middleware Triggered ----");
+//             if (context.GetEndpoint()?.Metadata.GetMetadata<IAllowAnonymous>() != null)
+//             {
+//                 Console.WriteLine("Anonymous access allowed for this endpoint.");
+//                 await _next(context);
+//                 return;
+//             }
 
+//             string authHeaderValue = context.Request.Headers["Authorization"];
+//             Console.WriteLine("Authorization Header Received: " + authHeaderValue);
 
-//       string authHeaderValue = context.Request.Headers["Authorization"];
+//             if (string.IsNullOrWhiteSpace(authHeaderValue))
+//             {
+//                 Console.WriteLine("Authorization header is missing.");
+//                 context.Response.StatusCode = 401;
+//                 await context.Response.WriteAsync("Authorization Header value not provided");
+//                 return;
+//             }
 
-//       if (string.IsNullOrWhiteSpace(authHeaderValue)) {
-//          context.Response.StatusCode = 401;
-//          await context.Response.WriteAsync("Authorization Header value not provided");
-//          return;
-//       }
+//             try
+//             {
+//                 var auth = authHeaderValue.Split(' ')[1];
+//                 var usernameAndPassword = Encoding.UTF8.GetString(Convert.FromBase64String(auth));
+//                 Console.WriteLine("Usernameandpassword: " + usernameAndPassword);
+//                 var username = usernameAndPassword.Split(':')[0];
+//                 var password = usernameAndPassword.Split(':')[1];
 
-//       // 3. Extract the username and password from the value by splitting it on space,
-//       // as the value looks something like 'Basic am9obi5kb2U6VmVyeVNlY3JldCE='
-//       var auth = authHeaderValue.Split([' '])[1];
+//                 // Obtener UserRepository desde DI
+//                 var userRepository = context.RequestServices.GetRequiredService<UserRepository>();
 
-//       // 4. Convert it form Base64 encoded text, back to normal text
-//       var usernameAndPassword = Encoding.UTF8.GetString(Convert.FromBase64String(auth));
+//                 var users = userRepository.GetUsers();
+//                 Console.WriteLine("Users: " + users);
+//                 var user = users.FirstOrDefault(u => u.UserName == username);
+//                 Console.WriteLine("USER MATCH: " + user);
 
-//       // 5. Extract username and password, which are separated by a semicolon
-//       var username = usernameAndPassword.Split([':'])[0];
-//       var password = usernameAndPassword.Split([':'])[1];
+//                 if (user != null && user.Password == password)
+//                 {
+//                     await _next(context);
+//                 }
+//                 else
+//                 {
+//                     context.Response.StatusCode = 401;
+//                     await context.Response.WriteAsync("Incorrect credentials provided");
+//                 }
+//             }
+//             catch
+//             {
+//                 context.Response.StatusCode = 401;
+//                 await context.Response.WriteAsync("Invalid Authorization Header");
+//             }
+//         }
+//     }
 
-//       // 6. Check if both username and password are correct
-//       if (username == USERNAME && password == PASSWORD) {
-//          await _next(context);
-//       }
-//       else {
-//          // If not, then send Unauthorized response
-//          context.Response.StatusCode = 401;
-//          await context.Response.WriteAsync("Incorrect credentials provided");
-//          return;
-//       }
-//    }
-// }
-
-// public static class BasicAuthenticationMiddlewareExtensions {
-//    public static IApplicationBuilder UseBasicAuthenticationMiddleware(this IApplicationBuilder builder) {
-//       return builder.UseMiddleware<BasicAuthenticationMiddleware>();
-//    }
+//     public static class BasicAuthenticationMiddlewareExtensions
+//     {
+//         public static IApplicationBuilder UseBasicAuthenticationMiddleware(this IApplicationBuilder builder)
+//         {
+//             return builder.UseMiddleware<BasicAuthenticationMiddleware>();
+//         }
+//     }
 // }
 
 
@@ -80,52 +100,93 @@ namespace CourseAdminSystem.API.Middleware
         }
 
         public async Task InvokeAsync(HttpContext context)
+{
+    Console.WriteLine("---- Basic Authentication Middleware Triggered ----");
+
+    var endpoint = context.GetEndpoint();
+    if (endpoint?.Metadata.GetMetadata<IAllowAnonymous>() != null)
+    {
+        Console.WriteLine("Anonymous access allowed for this endpoint.");
+        await _next(context);
+        return;
+    }
+
+    string authHeaderValue = context.Request.Headers["Authorization"];
+    Console.WriteLine("Authorization Header Received: " + authHeaderValue);
+
+    if (string.IsNullOrWhiteSpace(authHeaderValue))
+    {
+        Console.WriteLine("Authorization header is missing.");
+        context.Response.StatusCode = 401;
+        await context.Response.WriteAsync("Authorization Header value not provided");
+        return;
+    }
+
+    try
+    {
+        if (!authHeaderValue.StartsWith("Basic "))
         {
-            if (context.GetEndpoint()?.Metadata.GetMetadata<IAllowAnonymous>() != null)
+            Console.WriteLine("Authorization header does not start with 'Basic '");
+            context.Response.StatusCode = 401;
+            await context.Response.WriteAsync("Authorization header must start with 'Basic '");
+            return;
+        }
+
+        var encodedCredentials = authHeaderValue.Substring("Basic ".Length).Trim();
+        Console.WriteLine("Encoded Credentials: " + encodedCredentials);
+
+        var decodedBytes = Convert.FromBase64String(encodedCredentials);
+        var decodedString = Encoding.UTF8.GetString(decodedBytes);
+        Console.WriteLine("Decoded Credentials: " + decodedString);
+
+        var parts = decodedString.Split(':');
+        if (parts.Length != 2)
+        {
+            Console.WriteLine("Credentials format invalid (missing ':').");
+            context.Response.StatusCode = 401;
+            await context.Response.WriteAsync("Invalid credentials format");
+            return;
+        }
+
+        var username = parts[0];
+        var password = parts[1];
+        Console.WriteLine($"Parsed Username: {username}, Password: {password}");
+
+        var userRepository = context.RequestServices.GetRequiredService<UserRepository>();
+        var user = userRepository.GetUsers().FirstOrDefault(u => u.UserName == username);
+
+        if (user != null)
+        {
+            Console.WriteLine("User found in DB: " + user.UserName);
+            if (user.Password == password)
             {
+                Console.WriteLine("Authentication successful.");
                 await _next(context);
                 return;
             }
-
-            string authHeaderValue = context.Request.Headers["Authorization"];
-
-            if (string.IsNullOrWhiteSpace(authHeaderValue))
+            else
             {
-                context.Response.StatusCode = 401;
-                await context.Response.WriteAsync("Authorization Header value not provided");
-                return;
-            }
-
-            try
-            {
-                var auth = authHeaderValue.Split(' ')[1];
-                var usernameAndPassword = Encoding.UTF8.GetString(Convert.FromBase64String(auth));
-
-                var username = usernameAndPassword.Split(':')[0];
-                var password = usernameAndPassword.Split(':')[1];
-
-                // Obtener UserRepository desde DI
-                var userRepository = context.RequestServices.GetRequiredService<UserRepository>();
-
-                var users = userRepository.GetUsers();
-                var user = users.FirstOrDefault(u => u.UserName == username);
-
-                if (user != null && user.Password == password)
-                {
-                    await _next(context);
-                }
-                else
-                {
-                    context.Response.StatusCode = 401;
-                    await context.Response.WriteAsync("Incorrect credentials provided");
-                }
-            }
-            catch
-            {
-                context.Response.StatusCode = 401;
-                await context.Response.WriteAsync("Invalid Authorization Header");
+                Console.WriteLine("Password mismatch.");
             }
         }
+        else
+        {
+            Console.WriteLine("User not found in DB.");
+        }
+
+        context.Response.StatusCode = 401;
+        await context.Response.WriteAsync("Incorrect credentials provided");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine("Exception during authentication: " + ex.Message);
+        context.Response.StatusCode = 401;
+        await context.Response.WriteAsync("Invalid Authorization Header");
+    }
+
+    Console.WriteLine("---- End of Middleware ----");
+}
+
     }
 
     public static class BasicAuthenticationMiddlewareExtensions

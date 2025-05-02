@@ -43,8 +43,11 @@ app.UseCors("AllowFrontend");
 //app.UseCors(policy=> policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 //app.UseHttpsRedirection();
 
-app.UseBasicAuthenticationMiddleware();
+// Required: UseRouting() before custom middleware (implied by MapControllers, but make it explicit)
+app.UseRouting();
 
 app.UseAuthorization();
+app.UseBasicAuthenticationMiddleware();
+
 app.MapControllers();
 app.Run();
