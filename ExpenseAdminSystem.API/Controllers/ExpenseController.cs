@@ -22,9 +22,9 @@ return NotFound();
 return Ok(expense);
 }
 [HttpGet]
-public ActionResult<IEnumerable<Expense>> GetExpenses()
+public ActionResult<IEnumerable<Expense>> GetExpenses([FromQuery] int userId)
 {
-return Ok(Repository.GetExpenses());
+return Ok(Repository.GetExpensesByUserId(userId));
 }
 [HttpPost]
 public ActionResult Post([FromBody] Expense expense) {
