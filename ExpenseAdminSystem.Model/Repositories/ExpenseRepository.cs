@@ -65,7 +65,7 @@ while (data.Read()) //every time loop runs it reads next like from fetched rows
 {
 Expense s = new Expense(Convert.ToInt32(data["id"]))
 {
-//Id = (int)data["id"],
+Id = (int)data["id"],
 UserId = (int)data["user_id"],
 Amount = (decimal)data["amount"],
 ExpenseDate = Convert.ToDateTime(data["expense_date"]),
@@ -84,7 +84,51 @@ finally
 dbConn?.Close();
 }
 }
-//add a new student
+
+public List<Expense> GetExpensesByUserId(int userId)
+{
+    NpgsqlConnection dbConn = null;
+    var expenses = new List<Expense>();
+
+    try
+{
+    dbConn = new NpgsqlConnection(ConnectionString);
+    var cmd = dbConn.CreateCommand();
+    cmd.CommandText = @"SELECT * FROM expense WHERE user_id = @userId";
+    cmd.Parameters.AddWithValue("@userId", NpgsqlDbType.Integer, userId);
+
+    var data = GetData(dbConn, cmd);
+    if (data != null)
+    {
+        while (data.Read())
+        {
+            Expense e = new Expense(Convert.ToInt32(data["id"]))
+            {
+                Id = (int)data["id"],
+                UserId = (int)data["user_id"],
+                Amount = (decimal)data["amount"],
+                ExpenseDate = Convert.ToDateTime(data["expense_date"]),
+                CategoryId = (int)data["category_id"],
+                CurrencyId = (int)data["currency_id"],
+                Comments = data["comments"].ToString(),
+                CreatedAt = Convert.ToDateTime(data["created_at"])
+            };
+            expenses.Add(e);
+        }
+    }
+    return expenses;
+}
+    finally
+{
+dbConn?.Close();
+}
+}
+
+
+
+
+
+
 public bool InsertExpense(Expense s)
 {
 NpgsqlConnection dbConn = null;
