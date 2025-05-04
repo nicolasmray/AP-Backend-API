@@ -30,7 +30,7 @@ return Ok(Repository.GetExpensesByUserId(userId));
 public ActionResult Post([FromBody] Expense expense) {
 if (expense == null)
 {
-return BadRequest("Student info not correct");
+return BadRequest("Expense info not correct");
 }
 bool status = Repository.InsertExpense(expense);
 if (status)
@@ -65,6 +65,7 @@ if (existingExpense == null)
 {
 return NotFound($"Expense with id {id} not found");
 }
+Console.WriteLine($"ID desde EXPENSE CONTROLLER: {id}");
 bool status = Repository.DeleteExpense(id);
 if (status)
 {
