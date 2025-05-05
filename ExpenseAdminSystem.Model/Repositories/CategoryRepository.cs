@@ -87,7 +87,7 @@ values
 (@name)
 ";
 //adding parameters in a better way
-//cmd.Parameters.AddWithValue("@id", NpgsqlDbType.Integer,s.Id);
+cmd.Parameters.AddWithValue("@id", NpgsqlDbType.Integer,s.Id);
 cmd.Parameters.AddWithValue("@name", NpgsqlDbType.Text, s.Name);
 
 //will return true if all goes well
@@ -105,10 +105,10 @@ var dbConn = new NpgsqlConnection(ConnectionString);
 var cmd = dbConn.CreateCommand();
 cmd.CommandText = @"
 update category set
-name=@name,
+name=@name
 where
 id = @id";
-//cmd.Parameters.AddWithValue("@id", NpgsqlDbType.Integer,s.Id);
+cmd.Parameters.AddWithValue("@id", NpgsqlDbType.Integer,s.Id);
 cmd.Parameters.AddWithValue("@name", NpgsqlDbType.Text, s.Name);
 bool result = UpdateData(dbConn, cmd);
 return result;
