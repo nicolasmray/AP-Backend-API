@@ -219,10 +219,10 @@ amount=@amount,
 category_id=@category_id,
 currency_id=@currency_id,
 comments=@comments,
-created_at=@created_at,
+created_at=@created_at
 where
 id = @id";
-//cmd.Parameters.AddWithValue("@id", NpgsqlDbType.Integer,s.Id);
+cmd.Parameters.AddWithValue("@id", NpgsqlDbType.Integer,s.Id);
 cmd.Parameters.AddWithValue("@user_id", NpgsqlDbType.Integer,s.UserId);
 cmd.Parameters.AddWithValue("@amount", NpgsqlDbType.Numeric,s.Amount);
 cmd.Parameters.AddWithValue("@category_id", NpgsqlDbType.Integer,s.CategoryId);

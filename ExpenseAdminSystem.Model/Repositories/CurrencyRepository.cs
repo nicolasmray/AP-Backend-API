@@ -89,7 +89,7 @@ values
 (@code, @name)
 ";
 //adding parameters in a better way
-//cmd.Parameters.AddWithValue("@id", NpgsqlDbType.Integer,s.Id);
+cmd.Parameters.AddWithValue("@id", NpgsqlDbType.Integer,s.Id);
 cmd.Parameters.AddWithValue("@code", NpgsqlDbType.Text, s.Code);
 cmd.Parameters.AddWithValue("@name", NpgsqlDbType.Text, s.Name);
 
@@ -109,10 +109,10 @@ var cmd = dbConn.CreateCommand();
 cmd.CommandText = @"
 update currency set
 code=@code,
-name=@name,
+name=@name
 where
 id = @id";
-//cmd.Parameters.AddWithValue("@id", NpgsqlDbType.Integer,s.Id);
+cmd.Parameters.AddWithValue("@id", NpgsqlDbType.Integer,s.Id);
 cmd.Parameters.AddWithValue("@code", NpgsqlDbType.Text, s.Code);
 cmd.Parameters.AddWithValue("@name", NpgsqlDbType.Text, s.Name);
 bool result = UpdateData(dbConn, cmd);
