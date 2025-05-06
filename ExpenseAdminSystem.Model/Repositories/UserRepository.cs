@@ -93,11 +93,10 @@ values
 (@username, @email, @password_hash, @created_at)
 ";
 
-        var createdAt = s.CreatedAt == default(DateTime) 
-            ? DateTime.Now 
-            : s.CreatedAt;
+    var createdAt = DateTime.Now;
+  
 //adding parameters in a better way
-//cmd.Parameters.AddWithValue("@id", NpgsqlDbType.Integer,s.Id);
+cmd.Parameters.AddWithValue("@id", NpgsqlDbType.Integer,s.Id);
 cmd.Parameters.AddWithValue("@username", NpgsqlDbType.Text, s.UserName);
 cmd.Parameters.AddWithValue("@email", NpgsqlDbType.Text, s.Email);
 cmd.Parameters.AddWithValue("@password_hash", NpgsqlDbType.Text, s.Password);
