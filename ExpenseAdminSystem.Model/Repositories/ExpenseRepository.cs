@@ -48,7 +48,7 @@ public ExpenseRepository(IConfiguration configuration) : base(configuration)
 // }
 
 
-public Expense GetExpenseById(int id)
+public virtual Expense GetExpenseById(int id)
 {
     NpgsqlConnection dbConn = null;
     try
@@ -86,7 +86,7 @@ public Expense GetExpenseById(int id)
 
 
 
-public List<Expense> GetExpenses()
+public virtual List<Expense> GetExpenses()
 {
 NpgsqlConnection dbConn = null;
 var expenses = new List<Expense>();
@@ -125,7 +125,7 @@ dbConn?.Close();
 }
 }
 
-public List<Expense> GetExpensesByUserId(int userId)
+public virtual List<Expense> GetExpensesByUserId(int userId)
 {
     NpgsqlConnection dbConn = null;
     var expenses = new List<Expense>();
@@ -169,7 +169,7 @@ dbConn?.Close();
 
 
 
-public bool InsertExpense(Expense s)
+public virtual bool InsertExpense(Expense s)
 {
 NpgsqlConnection dbConn = null;
 try
@@ -208,7 +208,7 @@ finally
 dbConn?.Close();
 }
 }
-public bool UpdateExpense(Expense s)
+public virtual bool UpdateExpense(Expense s)
 {
 var dbConn = new NpgsqlConnection(ConnectionString);
 var cmd = dbConn.CreateCommand();
@@ -232,7 +232,7 @@ cmd.Parameters.AddWithValue("@created_at", NpgsqlDbType.Date, s.CreatedAt);
 bool result = UpdateData(dbConn, cmd);
 return result;
 }
-public bool DeleteExpense(int id)
+public virtual bool DeleteExpense(int id)
 {
 Console.WriteLine($"DeleteExpense called with ID: {id}");
 var dbConn = new NpgsqlConnection(ConnectionString);

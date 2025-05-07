@@ -9,7 +9,7 @@ public class UserRepository : BaseRepository
 public UserRepository(IConfiguration configuration) : base(configuration)
 {
 }
-public User GetUserById(int id)
+public virtual User GetUserById(int id)
 {
 NpgsqlConnection dbConn = null;
 try
@@ -43,7 +43,7 @@ finally
 dbConn?.Close();
 }
 }
-public List<User> GetUsers()
+public virtual List<User> GetUsers()
 {
 NpgsqlConnection dbConn = null;
 var users = new List<User>();
@@ -79,7 +79,7 @@ dbConn?.Close();
 }
 }
 //add a new student
-public bool InsertUser(User s)
+public virtual bool InsertUser(User s)
 {
 NpgsqlConnection dbConn = null;
 try
@@ -111,7 +111,7 @@ finally
 dbConn?.Close();
 }
 }
-public bool UpdateUser(User s)
+public virtual bool UpdateUser(User s)
 {
 var dbConn = new NpgsqlConnection(ConnectionString);
 var cmd = dbConn.CreateCommand();
@@ -138,7 +138,7 @@ cmd.Parameters.AddWithValue("@created_at", NpgsqlDbType.Timestamp, createdAt);
 bool result = UpdateData(dbConn, cmd);
 return result;
 }
-public bool DeleteUser(int id)
+public virtual bool DeleteUser(int id)
 {
 var dbConn = new NpgsqlConnection(ConnectionString);
 var cmd = dbConn.CreateCommand();
