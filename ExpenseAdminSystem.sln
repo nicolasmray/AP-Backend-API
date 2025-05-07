@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseAdminSystem.API", "E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseAdminSystem.Model", "ExpenseAdminSystem.Model\ExpenseAdminSystem.Model.csproj", "{8BF72EB5-9DFF-4CD7-8B58-238036902B7A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseAdminSystem.Tests", "ExpenseAdminSystem.Tests\ExpenseAdminSystem.Tests.csproj", "{7C4080E1-3DA9-482E-8764-A8468ED8DAEE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{8BF72EB5-9DFF-4CD7-8B58-238036902B7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BF72EB5-9DFF-4CD7-8B58-238036902B7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BF72EB5-9DFF-4CD7-8B58-238036902B7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C4080E1-3DA9-482E-8764-A8468ED8DAEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C4080E1-3DA9-482E-8764-A8468ED8DAEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C4080E1-3DA9-482E-8764-A8468ED8DAEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C4080E1-3DA9-482E-8764-A8468ED8DAEE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
