@@ -1,10 +1,8 @@
 namespace ExpenseAdminSystem.Model.Entities;
-
 public class Expense {
     public Expense(int id){
         Id = id;
     }
-
     public int Id { get; set; }
     public int UserId { get; set; }
     public decimal Amount { get; set; }
